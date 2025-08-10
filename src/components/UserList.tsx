@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 function UserList() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
@@ -14,7 +20,7 @@ function UserList() {
         if (!res.ok) throw new Error("Failed to fetch user data");
         return res.json();
       })
-      .then((data) => {
+      .then((data: User[]) => {
         setUsers(data);
         setLoading(false);
       })
